@@ -1,15 +1,16 @@
 const VueImg$1 = Object.create(null);
+if(typeof window !== 'undefined'){
+    // Check webP support
+  VueImg$1.canWebp = false;
+  const img = new Image();
+  img.onload = () => { VueImg$1.canWebp = true; };
+  img.src = 'data:image/webp;base64,UklGRkoAAABXRUJQVlA4WAoAAAAQAAAAAAAAAAAAQUxQSAsAAAABBxAREYiI/gcAAABWUDggGAAAADABAJ0BKgEAAQABABwlpAADcAD+/gbQAA==';
 
-// Check webP support
-VueImg$1.canWebp = false;
-const img = new Image();
-img.onload = () => { VueImg$1.canWebp = true; };
-img.src = 'data:image/webp;base64,UklGRkoAAABXRUJQVlA4WAoAAAAQAAAAAAAAAAAAQUxQSAsAAAABBxAREYiI/gcAAABWUDggGAAAADABAJ0BKgEAAQABABwlpAADcAD+/gbQAA==';
-
-// Default cdn prefix
-const protocol = location.protocol === 'https:' ? 'https://' : 'http://';
-const env = document.domain.match(/.(alpha|beta|ar).ele(net)?.me$/);
-VueImg$1.cdn = protocol + (env ? `fuss${env[0]}` : 'fuss10.elemecdn.com');
+    // Default cdn prefix
+  const protocol = location.protocol === 'https:' ? 'https://' : 'http://';
+  const env = document.domain.match(/.(alpha|beta|ar).ele(net)?.me$/);
+  VueImg$1.cdn = protocol + (env ? `fuss${env[0]}` : 'fuss10.elemecdn.com');
+}
 
 const hasProp = (obj, prop) => Object.prototype.hasOwnProperty.call(obj, prop);
 const html = document.documentElement;
@@ -163,6 +164,7 @@ var getImageClass = (opt = {}) => {
           'width', 'height', 'quality',
           'format', 'fallback', 'adapt',
           'prefix', 'suffix', 'defer',
+          'urlFormatter',
         ],
       });
     }

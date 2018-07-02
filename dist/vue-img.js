@@ -5,17 +5,18 @@
 }(this, (function () { 'use strict';
 
 var VueImg$1 = Object.create(null);
+if(typeof window !== 'undefined'){
+    // Check webP support
+  VueImg$1.canWebp = false;
+  var img = new Image();
+  img.onload = function () { VueImg$1.canWebp = true; };
+  img.src = 'data:image/webp;base64,UklGRkoAAABXRUJQVlA4WAoAAAAQAAAAAAAAAAAAQUxQSAsAAAABBxAREYiI/gcAAABWUDggGAAAADABAJ0BKgEAAQABABwlpAADcAD+/gbQAA==';
 
-// Check webP support
-VueImg$1.canWebp = false;
-var img = new Image();
-img.onload = function () { VueImg$1.canWebp = true; };
-img.src = 'data:image/webp;base64,UklGRkoAAABXRUJQVlA4WAoAAAAQAAAAAAAAAAAAQUxQSAsAAAABBxAREYiI/gcAAABWUDggGAAAADABAJ0BKgEAAQABABwlpAADcAD+/gbQAA==';
-
-// Default cdn prefix
-var protocol = location.protocol === 'https:' ? 'https://' : 'http://';
-var env = document.domain.match(/.(alpha|beta|ar).ele(net)?.me$/);
-VueImg$1.cdn = protocol + (env ? ("fuss" + (env[0])) : 'fuss10.elemecdn.com');
+    // Default cdn prefix
+  var protocol = location.protocol === 'https:' ? 'https://' : 'http://';
+  var env = document.domain.match(/.(alpha|beta|ar).ele(net)?.me$/);
+  VueImg$1.cdn = protocol + (env ? ("fuss" + (env[0])) : 'fuss10.elemecdn.com');
+}
 
 var hasProp = function (obj, prop) { return Object.prototype.hasOwnProperty.call(obj, prop); };
 var html = document.documentElement;
@@ -183,7 +184,8 @@ var getImageClass = function (opt) {
           'hash', 'loading', 'error',
           'width', 'height', 'quality',
           'format', 'fallback', 'adapt',
-          'prefix', 'suffix', 'defer' ],
+          'prefix', 'suffix', 'defer',
+          'urlFormatter' ],
       });
     }
 
